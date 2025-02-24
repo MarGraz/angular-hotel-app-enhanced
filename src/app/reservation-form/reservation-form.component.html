@@ -2,27 +2,43 @@
 
 <div>
     <label>CheckIn date:</label>
-    <input type="date" formControlName="checkInDate"> 
+    <input type="date" formControlName="checkInDate">
+    <!-- If there's a validation error, and the user touched the input, show the error messages. Touched is to avoid that the message appear also if you reload the page -->
+    <div *ngIf="reservationForm.get('checkInDate')?.invalid && reservationForm.get('checkInDate')?.touched">
+        CheckIn date is required
+    </div> 
 </div>
 
 <div>
     <label>CheckOut date:</label>
-    <input type="date" formControlName="checkOutDate"> 
+    <input type="date" formControlName="checkOutDate">
+    <div *ngIf="reservationForm.get('checkOutDate')?.invalid && reservationForm.get('checkOutDate')?.touched">
+        CheckOut date is required
+    </div> 
 </div>
 
 <div>
     <label>Guest Name:</label>
-    <input type="text" formControlName="guestName"> 
+    <input type="text" formControlName="guestName">
+    <div *ngIf="reservationForm.get('guestName')?.invalid && reservationForm.get('guestName')?.touched">
+        Guest name is required
+    </div> 
 </div>
 
 <div>
     <label>Guest Email:</label>
-    <input type="email" formControlName="guestEmail"> 
+    <input type="email" formControlName="guestEmail">
+    <div *ngIf="reservationForm.get('guestEmail')?.invalid && reservationForm.get('guestEmail')?.touched">
+        Guest email is required
+    </div> 
 </div>
 
 <div>
     <label>Room Number:</label>
     <input type="number" formControlName="roomNumber"> 
+    <div *ngIf="reservationForm.get('roomNumber')?.invalid && reservationForm.get('roomNumber')?.touched">
+        Room number is required
+    </div> 
 </div>
 
 <!-- In this way the button still disabled since all the required field are filled -->
