@@ -25,5 +25,6 @@
     <input type="number" formControlName="roomNumber"> 
 </div>
 
-<button type="submit">Submit</button>
+<!-- In this way the button still disabled since all the required field are filled -->
+<button type="submit" [disabled]="reservationForm.invalid">Submit</button>
 </form>
