@@ -11,7 +11,7 @@ export class ReservationService {
 
   constructor(){
 
-    // The constructor is loaded before the ngOnInit, this give us the possibility to load first all the reservqtions from the memory
+    // The constructor is loaded before the ngOnInit (that is implemented in our component), this give us the possibility to load first all the reservqtions from the memory
    let savedReservations = localStorage.getItem("reservations");
 
    // Save the in memory reservations inside the local reservations property
