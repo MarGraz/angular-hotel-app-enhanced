@@ -33,6 +33,11 @@ export class ReservationService {
 
   // Create single reservation
   addReservation(reservation: Reservation): void {
+    
+    // Set an unique ID
+    reservation.id = Date.now().toString();
+    
+    // Add the reservation to the property array
     this.reservations.push(reservation);
 
     // Save the reservations array (overwrite it) inside the browser localStorage, to keep elements in memory also after a refresh/reboot
