@@ -12,6 +12,9 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     RouterModule
+  ], 
+  exports: [
+    HomeComponent // To use the home component (like the navigation menu), in other components
   ]
 })
 export class HomeModule { }
