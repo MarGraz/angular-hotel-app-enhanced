@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent }, // Home route
   { path: 'list', component: ReservationListComponent }, // Reservation List route
   { path: 'new', component: ReservationFormComponent }, // New Reservation route
+  { path: 'edit/:id', component: ReservationFormComponent }, // Edit a reservation, we use always the formComponent for the edit
 ];
 
 @NgModule({
