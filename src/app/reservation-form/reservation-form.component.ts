@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReservationService } from '../reservation/reservation.service';
 import { Reservation } from '../models/reservation';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-reservation-form',
@@ -19,9 +19,11 @@ export class ReservationFormComponent implements OnInit {
   // It will be invoked every time this component is instantiated
   // and it get all the parameters in Dependency Injection
   constructor(
-    private formBuilder: FormBuilder, 
+    private formBuilder: FormBuilder,
     private reservationService: ReservationService,
-    private router: Router) {}
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.reservationForm = this.formBuilder.group({
@@ -31,19 +33,38 @@ export class ReservationFormComponent implements OnInit {
       guestEmail: ['', [Validators.required, Validators.email]],
       roomNumber: ['', Validators.required],
     });
+
+    // In case the user visit the "edit" route, it catch the id in the route
+    let id = this.activatedRoute.snapshot.paramMap.get('id');
+
+    // If an id is present, this is a reservation EDIT, and it's necessary to fill the form with stored data
+    if (id) {
+      // Retrieve the reservation to edit
+      let reservationToEdit = this.reservationService.getReservation(id);
+
+      if (reservationToEdit)
+        // Fill the form with the reservation data retrieved
+        this.reservationForm.patchValue(reservationToEdit);
+    }
   }
 
   // Method triggered when the form is submitted
   onSubmit() {
     if (this.reservationForm.valid) {
-
       // OnSubmit get the reservation from the reservationForm
       let reservation: Reservation = this.reservationForm.value;
 
-      // The reservationService is passed in DI from the component constructor
-      // Create the reservation
-      this.reservationService.addReservation(reservation);
+      // In case the user visit the "edit" route, it catch the id in the route
+      let id = this.activatedRoute.snapshot.paramMap.get('id');
 
+      // If an id is present, this is a reservation EDIT request
+      if (id) {
+        // Reservation UPDATE
+        this.reservationService.updateReservation(id, reservation);
+      } else {
+        // Reservation CREATION (New)
+        this.reservationService.addReservation(reservation); // The reservationService is passed in DI from the component constructor
+      }
       // After the user added a reservation, the user will be redirected to the reservation list
       this.router.navigate(['/list']);
     }

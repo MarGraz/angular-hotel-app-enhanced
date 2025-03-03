@@ -57,9 +57,9 @@ export class ReservationService {
   }
 
   // Update single reservation
-  updateReservation(updatedReservation: Reservation): void {
+  updateReservation(id: string, updatedReservation: Reservation): void {
      // First get the element by id
-     let index = this.reservations.findIndex(res => res.id === updatedReservation.id);
+     let index = this.reservations.findIndex(res => res.id === id);
 
      // Overwrite the reservation using the index
      this.reservations[index] = updatedReservation;
