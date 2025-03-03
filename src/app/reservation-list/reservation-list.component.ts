@@ -18,4 +18,9 @@ export class ReservationListComponent implements OnInit {
     // The ngOnInit is executed after the service, where the reservations are retrieved from the browser memory
     this.reservations = this.reservationService.getReservations();
   }
+
+  deleteReservation(id: string){
+    // Call the service to delete a reservation
+    this.reservationService.deleteReservation(id);
+  }
 }
