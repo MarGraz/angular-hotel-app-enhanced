@@ -1,6 +1,6 @@
 # HotelApp
 
-This is a demo project for training purpose, it's the second part af a learning path started with the (https://github.com/MarGraz/angular-appointment-app)[Appointment App]. In this case the arguments are the same of the Appointment App, plus new arguments like:
+This is a demo project for training purpose, it's the second part af a learning path started with the [Appointment App](https://github.com/MarGraz/angular-appointment-app). In this case the arguments are the same of the Appointment App, plus new arguments like:
 
 - Services, to pass them in DI to our components
 - Implementing CRUD in our Service
