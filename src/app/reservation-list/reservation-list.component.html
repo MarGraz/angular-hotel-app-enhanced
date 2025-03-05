@@ -1,22 +1,36 @@
 <app-home> <!-- Navigation menu from home component --> </app-home>
 
-<h2>Reservation List</h2>
+<h3 class="mt-5 mb-2">Reservation List</h3>
 
-<ul *ngIf="reservations.length; else noElements">
-  <li *ngFor="let reservation of reservations">
-    Guest: {{ reservation.guestName }} <br />
-    Email: {{ reservation.guestEmail }} <br />
-    Room Number: {{ reservation.roomNumber }} <br />
-    Check In: {{ reservation.checkInDate }} <br />
-    Check Out: {{ reservation.checkOutDate }} <br />
-    <button (click)="deleteReservation(reservation.id)">Delete</button>
-    <button [routerLink]="['/edit', reservation.id]">Edit</button>  
-</li>
-</ul>
+<table class="table table-striped" *ngIf="reservations.length; else noElements">
+  <thead>
+    <tr>
+      <th>Guest</th>
+      <th>Email</th>
+      <th>Room Number</th>
+      <th>Check In</th>
+      <th>Check Out</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let reservation of reservations">
+      <td>{{ reservation.guestName }}</td>
+      <td>{{ reservation.guestEmail }}</td>
+      <td>{{ reservation.roomNumber }}</td>
+      <td>{{ reservation.checkInDate }}</td>
+      <td>{{ reservation.checkOutDate }}</td>
+      <td>
+        <button class="btn btn-sm btn-danger mx-1" (click)="deleteReservation(reservation.id)">Delete</button>
+        <button class="btn btn-sm btn-secondary mx-1" [routerLink]="['/edit', reservation.id]">Edit</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 <!-- The local reference #noElements is used in combination with
- the *ngIf directive in the ul tag, to check if there are 
- elemnts in the list or not, and show a message in this case -->
+ the *ngIf directive in the table, to check if there are 
+ elemnts in the table or not, and show a message in this case -->
 <ng-template #noElements>
-  <p>No reservation available</p>
+  <small>No reservation available</small>
 </ng-template>
