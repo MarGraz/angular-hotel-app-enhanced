@@ -16,7 +16,9 @@ export class ReservationListComponent implements OnInit {
 
   ngOnInit(): void {
     // The ngOnInit is executed after the service, where the reservations are retrieved from the browser memory
-    this.reservations = this.reservationService.getReservations();
+    this.reservationService.getReservations().subscribe( reservationsResult => { // Now we have an Observale, an async method, so we need to subscribe to get the result
+      this.reservations = reservationsResult
+    }); 
   }
 
   deleteReservation(id: string){

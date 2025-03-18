@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Reservation } from '../models/reservation';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 // Injectable ia a decorator that means this service will be available in dependency injection
 @Injectable({
@@ -7,13 +9,18 @@ import { Reservation } from '../models/reservation';
 })
 export class ReservationService {
   
+  private apiUrl = "http://localhost:3000" // Mockoon URL
   private reservations: Reservation[] = [];
+
+constructor(private http: HttpClient){
+
+}
 
   // CRUD operations on our Reservation
 
   // Get list
-  getReservations(): Reservation[] {
-    return this.reservations;
+  getReservations(): Observable<Reservation[]> {   // Observable means async, it's an asyncronous way to wait for results 
+    return this.http.get<Reservation[]>(this.apiUrl + "/reservations");
   }
 
   // Get single reservation
