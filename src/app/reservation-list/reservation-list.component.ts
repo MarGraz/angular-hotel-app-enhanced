@@ -16,13 +16,15 @@ export class ReservationListComponent implements OnInit {
 
   ngOnInit(): void {
     // The ngOnInit is executed after the service, where the reservations are retrieved from the browser memory
-    this.reservationService.getReservations().subscribe( reservationsResult => { // Now we have an Observale, an async method, so we need to subscribe to get the result
+    this.reservationService.getReservations().subscribe( reservationsResult => { // Now we have an Observable, an async method, so we need to subscribe to get the result
       this.reservations = reservationsResult
     }); 
   }
 
   deleteReservation(id: string){
     // Call the service to delete a reservation
-    this.reservationService.deleteReservation(id);
+    this.reservationService.deleteReservation(id).subscribe(() => { // The mocked API returns void, but in our lambda function we want to return a text
+      console.log("Delete request processed") // Of course this will not delete the record in the UI, just print a log in the console
+    });
   }
 }

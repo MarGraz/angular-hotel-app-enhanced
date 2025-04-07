@@ -39,12 +39,13 @@ export class ReservationFormComponent implements OnInit {
 
     // If an id is present, this is a reservation EDIT, and it's necessary to fill the form with stored data
     if (id) {
-      // Retrieve the reservation to edit
-      let reservationToEdit = this.reservationService.getReservation(id);
+      // Retrieve the reservation to edit --> Now is returned by Mockoon app (mocked API)
+      this.reservationService.getReservation(id).subscribe(reservationToEdit => {
 
-      if (reservationToEdit)
-        // Fill the form with the reservation data retrieved
-        this.reservationForm.patchValue(reservationToEdit);
+        if (reservationToEdit)
+          // Fill the form with the reservation data retrieved
+          this.reservationForm.patchValue(reservationToEdit);
+      });
     }
   }
 
@@ -60,10 +61,14 @@ export class ReservationFormComponent implements OnInit {
       // If an id is present, this is a reservation EDIT request
       if (id) {
         // Reservation UPDATE
-        this.reservationService.updateReservation(id, reservation);
+        this.reservationService.updateReservation(id, reservation).subscribe(() => {
+          console.log("Update request processed")  // Because of the mock it just print the update in the console
+        });
       } else {
         // Reservation CREATION (New)
-        this.reservationService.addReservation(reservation); // The reservationService is passed in DI from the component constructor
+        this.reservationService.addReservation(reservation).subscribe(() => {
+          console.log("Create request processed")  // Because of the mock it just print the update in the console
+        });
       }
       // After the user added a reservation, the user will be redirected to the reservation list
       this.router.navigate(['/list']);

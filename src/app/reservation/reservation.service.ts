@@ -25,35 +25,49 @@ constructor(private http: HttpClient){
 
   // Get single reservation
   // Can return also undefined
-  getReservation(id: string): Reservation | undefined {
-    return this.reservations.find(res => res.id === id);
+  getReservation(id: string): Observable<Reservation> {
+    return this.http.get<Reservation>(this.apiUrl + "/reservation/" + id);
   }
 
   // Create single reservation
-  addReservation(reservation: Reservation): void {
+  addReservation(reservation: Reservation): Observable<void> {
     
+    return this.http.post<void>(this.apiUrl + "/reservation", reservation);
+
+    // REMOVED because now we have a mock 
+
     // Set an unique ID
-    reservation.id = Date.now().toString();
+    // reservation.id = Date.now().toString();
     
     // Add the reservation to the property array
-    this.reservations.push(reservation);
+    // this.reservations.push(reservation);
   }
 
   // Delete single reservation
-  deleteReservation(id: string): void {
+  deleteReservation(id: string): Observable<void> {
+    
+    return this.http.delete<void>(this.apiUrl + "/reservation/" + id);
+
+    // REMOVED because now we have a mock 
+
     // First get the element by id
-    let index = this.reservations.findIndex(res => res.id === id);
+    // let index = this.reservations.findIndex(res => res.id === id);
 
     // Delete the found element, only 1 element will be removed
-    this.reservations.splice(index, 1);
+    // this.reservations.splice(index, 1);
   }
 
   // Update single reservation
-  updateReservation(id: string, updatedReservation: Reservation): void {
-     // First get the element by id
-     let index = this.reservations.findIndex(res => res.id === id);
+  updateReservation(id: string, updatedReservation: Reservation): Observable<void> {
+    
+    return this.http.put<void>(this.apiUrl + "/reservation/" + id, updatedReservation);
+    
+    // REMOVED because now we have a mock 
+
+    // First get the element by id
+    // let index = this.reservations.findIndex(res => res.id === id);
 
      // Overwrite the reservation using the index
-     this.reservations[index] = updatedReservation;
+     // this.reservations[index] = updatedReservation;
   }
 }
